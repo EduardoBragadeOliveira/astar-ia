@@ -60,7 +60,7 @@ def solucao(estado):
 
     return inversoes % 2 == 0
 
-def existe_solucao(s, f, o):
+def solubilidade(s, f, o):
     if not solucao(s):
         print("Não tem solução")
         return
@@ -84,11 +84,11 @@ def astar(s, f, o):
         caminho_percorrido += 1
 
         if v == o:
-            print(f"Caminho percorrido: {caminho_percorrido}")
+            print(f"Caminhos percorridos: {caminho_percorrido}")
             # print(f"Custo até o estado objetivo: {v.d}")
             return v
 
-        vetor.add(v)
+        vetor.add(v) #É adicionado ao vetor o estado já passado, do qual não será revisitado, portanto, faz a remoção dos estados repetitivos
 
         for a in acoes_permitidas(v):
             u = movimentar(v, a)
@@ -101,7 +101,7 @@ def astar(s, f, o):
                 Q.put((u.p, u))
                 u.mostrar()
 
-    print(f"Caminho percorrido: {caminho_percorrido}")
+    print(f"Caminhos percorridos: {caminho_percorrido}")
     # print(f"Custo até o estado objetivo: {v.d}")
     return s
 
@@ -116,5 +116,5 @@ o = Estado(matriz=np.array([[1, 2, 3], [4, 5, 6],[7, 8, 9]]))
 s = Estado(matriz=np.array([[1, 2, 3], [4, 6, 5], [8, 7, 9]])) 
 # s = Estado(matriz=np.array([[1, 2, 3], [4, 5, 6], [8, 7, 9]])) #nao tem solucao
 
-# existe_solucao(s, hamming, o)
-existe_solucao(s, manhattan, o)
+# solubilidade(s, hamming, o)
+solubilidade(s, manhattan, o)
